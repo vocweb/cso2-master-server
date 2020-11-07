@@ -1,56 +1,71 @@
 # cso2-master-server
 
-[![Build Status](https://travis-ci.org/Ochii/cso2-master-server.svg?branch=master)](https://travis-ci.org/Ochii/cso2-master-server)
+This repository includes all the services required to run a game server for Counter-Strike: Online 2.
 
-A master server for Nexon's Counter-Strike: Online 2 written in Typescript on top of NodeJS.
+You can get [this client launcher](https://github.com/L-Leite/cso2-launcher) to play in the server.
 
-Used by this [client launcher](https://github.com/Ochii/cso2-launcher/).
+A [test game server](https://cso2.leite.xyz) is available at the IP address `51.68.197.15` .
 
-If you **wish to help** then please read the [contributing guide](https://github.com/Ochii/cso2-master-server/blob/master/.github/PULL_REQUEST_TEMPLATE.md) to know how.
+## Discuss
 
-## Running
+Join the [CSO2 Server Development Matrix room](https://matrix.to/#/#cso2:matrix.leite.xyz) for game server development discussion.
 
-To run the server, you need:
+### Community run discussions
 
-- [Node.js](https://nodejs.org/) (version 10 or better);
-- A server build. You can download [prebuilt files here](https://github.com/Ochii/cso2-master-server/releases/latest) or you can [build it yourself](#building).
+-   [Counter Strike Online Wiki's discord](https://discord.gg/GKPgrBG) (discuss at #cso2-project-discussion, in English)
+-   [CSO2 Revive](https://discord.gg/3tydYTC) (in Korean)
+-   [Counter-Strike Online 2 - EU/RU Server](https://discord.gg/yue5Zaf) (in English)
+-   [反恐精英 Online2(CSOL2)](https://jq.qq.com/?k=5PMEa6y) (in Chinese, requires [QQ](https://www.imqq.com/English1033.html))
 
-Then, in a terminal instance inside the server's directory, do:
+## Running the game server
+
+### With Docker and `docker-compose`
+
+You must have installed both [`docker`](https://docs.docker.com/) and [`docker-compose`](https://docs.docker.com/compose/) for these steps.
+
+The repository has two `docker-compose` configuration files:
+
+-   `docker-compose.development.yml` can be used for development environments
+-   `docker-compose.production.yml` can be used for development production environments (such as a remote server).
+
+#### Example start command
 
 ```sh
-npm install --only=production # installs the required dependencies (minimal dependencies)
-npm run start # starts the prebuilt server
+docker-compose -f docker-compose.development.yml up -d --build
 ```
 
-By the default, the server **will ask you which network interface to listen on**.
-
-See the [command line arguments](#command-line-arguments) for more options.
-
-## Building
-
-After downloading the source code, go to a terminal instance, inside the source code's directory and:
+#### Example stop command
 
 ```sh
-npm install # installs the required dependencies
-npm run build # builds the server
-npm run start # starts the fresh server build
+docker-compose -f docker-compose.development.yml down
 ```
 
-### Command line arguments
+### With Gulp
 
-Options:
+These steps require [Node.js](https://nodejs.org/en/download/) and [PostgreSQL](https://www.postgresql.org/download/) to be installed in your system.
 
-- ```-i, --ip-address [ip]``` (*optional*) The IP address to listen on (default: auto-detect)
-- ```-p, --port-master [port]``` (*optional*) The server's (TCP) port (default: 30001)
-- ```-P, --port-holepunch [port]``` (*optional*) The server's holepunch (UDP) port (default: 30002)
-- ```-l, --log-packets``` (*optional*) Log the incoming and outgoing packets
+#### Setting up
 
-## Contributors
+In a shell, run
 
-- [JusicP](https://github.com/JusicP)
+```sh
+./config/init_db.sh # initializes the database user and tables
+yarn # installs gulp and other build dependencies
+npx gulp build # builds the game server components
+```
+
+#### Starting the server
+
+In a shell, run
+
+```sh
+npx gulp start --intf eth0 # replace 'eth0' with your network interface
+```
+
+You can stop the server by pressing CTRL+C in the terminal.
 
 ## License
 
-Read ```LICENSE``` for the project's license information.
+Licensed under the MIT license, see `COPYING` for more information.
 
-I'm not affiliated with either Valve or Nexon, just like I don't own Counter-Strike Online 2.
+This project is not affiliated with either Valve or Nexon. Counter-Strike: Online 2 is owned by these companies.

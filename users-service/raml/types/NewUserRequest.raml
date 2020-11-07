@@ -1,0 +1,24 @@
+#%RAML 1.0 DataType
+
+description: The data used when requesting the creation of a new user.
+properties:
+  username: 
+    type: string
+    description: The target user's name
+    example: "gamer"
+  playername: 
+    type: string
+    description: The target user's ingame name
+    example: "VeryGoodGamer"
+  password:
+    type: string
+    description: The target user's secret password
+    example: "123456"
+  security_question:
+    type: integer
+    description: The target user's password recovery question's index
+    example: 5
+  security_answer:
+    type: string
+    description: The target user's password recovery password
+    example: "some place, some town"

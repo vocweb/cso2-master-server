@@ -1,0 +1,33 @@
+include includes/globals
+
+- const pageTitle = 'Log in to your account'
+- const currentPath = ['account', 'login']
+- const metaDescription = 'Log into your Counter-Strike Online 2 account.'
+
+doctype html
+html(lang="en")  
+  include includes/head
+  body
+    include includes/background
+    div(class="wrapper")
+      include includes/logo
+      include includes/announcement
+      include includes/statusbar
+      include includes/sidebar
+      div(class="content")
+        div(class="title")
+          h3 Log in to your account
+        form(action="/do_login", method="post")   
+          include includes/antibotfield
+          div(class="form-item")
+            span username:
+            input(type="text", name="username" required="true")
+          div(class="form-item")
+            span password:
+            input(type="password", name="password" required="true")
+          div(class="form-item")
+            input(type="submit", value="Log in" class="button")
+          div(class="help-url")
+            a(href='/signup') Create an account
+          div(class="help-url")
+            a(href='/recover_pw') Recover your password

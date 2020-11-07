@@ -1,0 +1,33 @@
+include includes/globals
+
+- const pageTitle = 'Welcome'
+- const currentPath = ['home']
+- const metaDescription = 'Play Counter-Strike Online 2 in this custom master server with others.'
+
+doctype html
+html(lang="en")  
+  include includes/head
+  body
+    include includes/background
+    div(class="wrapper")
+      include includes/logo
+      include includes/announcement
+      include includes/statusbar
+      include includes/sidebar
+      div(class="content")
+        div(class="title")
+          h3= `Welcome to ${serverTitle}`
+        p Welcome to the home of my custom Counter-Strike Online 2 master server. In here you can create and manage your account
+        p The game server's IP address is: 
+          code #{gameServerIp}
+        p You may 
+          a(href='/signup') create an account
+          | , or 
+          a(href='/login') login to your own
+        p You can also 
+          a(href='/downloads') download the game and learn how to install it
+        p For more information, go to the 
+          a(href='/about') about page
+        a(href='https://leite.xyz') Created by Luís Leite
+        span  | 
+        a(href='https://github.com/L-Leite/cso2-master-server') Source code
